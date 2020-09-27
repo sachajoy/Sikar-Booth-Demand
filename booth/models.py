@@ -24,7 +24,7 @@ class Booth(models.Model):
     route_no = models.ForeignKey(Route, on_delete=models.CASCADE)
     xname = models.CharField(max_length=64, default='')
     contractor_id = models.ForeignKey(Contractor,
-                                             on_delete=models.CASCADE)
+                                      on_delete=models.CASCADE)
     add1 = models.CharField(max_length=32, default='')
     add2 = models.CharField(max_length=32, default='')
     add3 = models.CharField(max_length=32, default='')
@@ -66,3 +66,50 @@ class ItemMST(models.Model):
 
     def __str__(self):
         return self.shortname
+
+
+class Shift(models.Model):
+    t_from = models.SmallIntegerField(default=0)
+    t_upto = models.SmallIntegerField(default=0)
+    shift = models.CharField(max_length=1, default='')
+
+    def __str__(self):
+        return self.shift
+
+    class Meta:
+        db_table = 'shift'
+
+
+class Tran(models.Model):
+    xdatetime = models.DateTimeField(default='0100-01-01 00:00:00')
+    xdate = models.DateField(default='0100-01-01')
+    shift = models.ForeignKey(Shift, on_delete=models.CASCADE)
+    booth_no = models.ForeignKey(Booth, on_delete=models.CASCADE)
+    booth_name = models.CharField(max_length=64, default='')
+    route_no = models.ForeignKey(Route, on_delete=models.CASCADE)
+    contractor_id = models.ForeignKey(Contractor, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return "{} {} {}".format(self.shift,
+                                 self.xdate,
+                                 self.booth_no)
+
+    class Meta:
+        db_table = 'tran'
+
+class TranDet(models.Model):
+    tran_id = models.ForeignKey(Tran, on_delete=models.CASCADE)
+    xdate = models.DateField(default='0100-01-01')
+    shift = models.ForeignKey(Shift, on_delete=models.CASCADE)
+    booth_no = models.ForeignKey(Booth, on_delete=models.CASCADE)
+    sno = models.SmallIntegerField(default=0)
+    item_id = models.ForeignKey(ItemMST, on_delete=models.CASCADE)
+    shortname = models.CharField(max_length=8, default='')
+    unit = models.CharField(max_length=8, default='')
+    packingtype = models.CharField(max_length=8, default='')
+    sale_unit = models.CharField(max_length=8, default='')
+    quantity = models.SmallIntegerField(default=0)
+
+    class Meta:
+        db_table = 'trandet'
+
