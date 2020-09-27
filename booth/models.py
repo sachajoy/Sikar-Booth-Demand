@@ -37,8 +37,6 @@ class Booth(models.Model):
     uid = models.CharField(max_length=5, default='')
     upwd = models.CharField(max_length=64, default='')
     tran_next_id = models.BigIntegerField(default=0)
-    _userdet = models.SmallIntegerField(default=0)
-    auth_userdet = models.SmallIntegerField(default=0)
 
     def __str__(self):
         return "{} {} {}".format(self.booth_no, self.xname, self.route_no)
