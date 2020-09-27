@@ -100,7 +100,7 @@ class Shift(models.Model):
 class Tran(models.Model):
     xdatetime = models.DateTimeField(default='0100-01-01 00:00:00')
     xdate = models.DateField(default='0100-01-01')
-    shift = models.ForeignKey(Shift, on_delete=models.CASCADE)
+    shift = models.CharField(max_length=1)
     booth_no = models.ForeignKey(Booth, on_delete=models.CASCADE)
     booth_name = models.CharField(max_length=64, default='')
     route_no = models.ForeignKey(Route, on_delete=models.CASCADE)
@@ -118,7 +118,7 @@ class Tran(models.Model):
 class TranDet(models.Model):
     tran_id = models.ForeignKey(Tran, on_delete=models.CASCADE)
     xdate = models.DateField(default='0100-01-01')
-    shift = models.ForeignKey(Shift, on_delete=models.CASCADE)
+    shift = models.CharField(max_length=1)
     booth_no = models.ForeignKey(Booth, on_delete=models.CASCADE)
     sno = models.SmallIntegerField(default=0)
     item_id = models.ForeignKey(ItemMST, on_delete=models.CASCADE)
