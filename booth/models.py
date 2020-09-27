@@ -4,6 +4,9 @@ from django.db import models
 class Contractor(models.Model):
     xname = models.CharField(max_length=64)
 
+    class Meta:
+        db_table = 'contractor'
+
     def __str__(self):
         return self.xname
 
@@ -15,8 +18,12 @@ class Route(models.Model):
                                       on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
 
+    class Meta:
+        db_table = 'route'
+
     def __str__(self):
         return "{} {}".format(self.route_no, self.xname)
+
 
 
 class Booth(models.Model):
@@ -38,6 +45,9 @@ class Booth(models.Model):
     upwd = models.CharField(max_length=64, default='')
     tran_next_id = models.BigIntegerField(default=0)
 
+    class Meta:
+        db_table = 'booth'
+
     def __str__(self):
         return "{} {} {}".format(self.booth_no,
                                  self.xname,
@@ -47,6 +57,9 @@ class Booth(models.Model):
 class ItemGroup(models.Model):
     xname = models.CharField(max_length=32, default='')
     itype = models.CharField(max_length=1, default='')
+
+    class Meta:
+        db_table = 'itemgroup'
 
     def __str__(self):
         return self.xname
@@ -64,6 +77,9 @@ class ItemMST(models.Model):
     qty_fill = models.DecimalField(max_digits=15, decimal_places=3)
     active = models.BooleanField(default=True)
 
+    class Meta:
+        db_table = 'itemmst'
+
     def __str__(self):
         return self.shortname
 
@@ -73,11 +89,12 @@ class Shift(models.Model):
     t_upto = models.SmallIntegerField(default=0)
     shift = models.CharField(max_length=1, default='')
 
+    class Meta:
+        db_table = 'shift'
+
     def __str__(self):
         return self.shift
 
-    class Meta:
-        db_table = 'shift'
 
 
 class Tran(models.Model):
@@ -89,13 +106,14 @@ class Tran(models.Model):
     route_no = models.ForeignKey(Route, on_delete=models.CASCADE)
     contractor_id = models.ForeignKey(Contractor, on_delete=models.CASCADE)
 
+    class Meta:
+        db_table = 'tran'
+
     def __str__(self):
         return "{} {} {}".format(self.shift,
                                  self.xdate,
                                  self.booth_no)
 
-    class Meta:
-        db_table = 'tran'
 
 class TranDet(models.Model):
     tran_id = models.ForeignKey(Tran, on_delete=models.CASCADE)
