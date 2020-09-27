@@ -15,7 +15,8 @@ class Route(models.Model):
     route_no = models.SmallIntegerField(default=0)
     xname = models.CharField(max_length=40)
     contractor_id = models.ForeignKey(Contractor,
-                                      on_delete=models.CASCADE)
+                                      on_delete=models.CASCADE,
+                                      db_column='contractor_id')
     active = models.BooleanField(default=True)
 
     class Meta:
@@ -28,10 +29,13 @@ class Route(models.Model):
 
 class Booth(models.Model):
     booth_no = models.SmallIntegerField(default=0)
-    route_no = models.ForeignKey(Route, on_delete=models.CASCADE)
+    route_no = models.ForeignKey(Route,
+                                 on_delete=models.CASCADE,
+                                 db_column='route_no')
     xname = models.CharField(max_length=64, default='')
     contractor_id = models.ForeignKey(Contractor,
-                                      on_delete=models.CASCADE)
+                                      on_delete=models.CASCADE,
+                                      db_column='contractor_id')
     add1 = models.CharField(max_length=32, default='')
     add2 = models.CharField(max_length=32, default='')
     add3 = models.CharField(max_length=32, default='')
@@ -69,7 +73,8 @@ class ItemMST(models.Model):
     xname = models.CharField(max_length=32, default='')
     shortname = models.CharField(max_length=8, default='')
     itemgroup_id = models.ForeignKey(ItemGroup,
-                                     on_delete=models.CASCADE)
+                                     on_delete=models.CASCADE,
+                                     db_column='itemgroup_id')
     itype = models.CharField(max_length=1, default='')
     unit = models.CharField(max_length=8, default='')
     packingtype = models.CharField(max_length=8, default='')
@@ -101,10 +106,16 @@ class Tran(models.Model):
     xdatetime = models.DateTimeField(default='0100-01-01 00:00:00')
     xdate = models.DateField(default='0100-01-01')
     shift = models.CharField(max_length=1)
-    booth_no = models.ForeignKey(Booth, on_delete=models.CASCADE)
+    booth_no = models.ForeignKey(Booth,
+                                 on_delete=models.CASCADE,
+                                 db_column='booth_no')
     booth_name = models.CharField(max_length=64, default='')
-    route_no = models.ForeignKey(Route, on_delete=models.CASCADE)
-    contractor_id = models.ForeignKey(Contractor, on_delete=models.CASCADE)
+    route_no = models.ForeignKey(Route,
+                                 on_delete=models.CASCADE,
+                                 db_column='route_no')
+    contractor_id = models.ForeignKey(Contractor,
+                                      on_delete=models.CASCADE,
+                                      db_column='contractor_id')
 
     class Meta:
         db_table = 'tran'
@@ -116,12 +127,18 @@ class Tran(models.Model):
 
 
 class TranDet(models.Model):
-    tran_id = models.ForeignKey(Tran, on_delete=models.CASCADE)
+    tran_id = models.ForeignKey(Tran,
+                                on_delete=models.CASCADE,
+                                db_column='tran_id')
     xdate = models.DateField(default='0100-01-01')
     shift = models.CharField(max_length=1)
-    booth_no = models.ForeignKey(Booth, on_delete=models.CASCADE)
+    booth_no = models.ForeignKey(Booth,
+                                 on_delete=models.CASCADE,
+                                 db_column='booth_no')
     sno = models.SmallIntegerField(default=0)
-    item_id = models.ForeignKey(ItemMST, on_delete=models.CASCADE)
+    item_id = models.ForeignKey(ItemMST,
+                                on_delete=models.CASCADE,
+                                db_column='item_id')
     shortname = models.CharField(max_length=8, default='')
     unit = models.CharField(max_length=8, default='')
     packingtype = models.CharField(max_length=8, default='')
