@@ -103,6 +103,7 @@ class Shift(models.Model):
 
 
 class Tran(models.Model):
+    id = models.BigIntegerField(primary_key=True)
     xdatetime = models.DateTimeField(default='0100-01-01 00:00:00')
     xdate = models.DateField(default='0100-01-01')
     shift = models.CharField(max_length=1)
