@@ -39,7 +39,10 @@ class Booth(models.Model):
     tran_next_id = models.BigIntegerField(default=0)
 
     def __str__(self):
-        return "{} {} {}".format(self.booth_no, self.xname, self.route_no)
+        return "{} {} {}".format(self.booth_no,
+                                 self.xname,
+                                 self.route_no)
+
 
 class ItemGroup(models.Model):
     xname = models.CharField(max_length=32, default='')
@@ -47,3 +50,19 @@ class ItemGroup(models.Model):
 
     def __str__(self):
         return self.xname
+
+
+class ItemMST(models.Model):
+    xname = models.CharField(max_length=32, default='')
+    shortname = models.CharField(max_length=8, default='')
+    itemgroup_id = models.ForeignKey(ItemGroup,
+                                     on_delete=models.CASCADE)
+    itype = models.CharField(max_length=1, default='')
+    unit = models.CharField(max_length=8, default='')
+    packingtype = models.CharField(max_length=8, default='')
+    sale_unit = models.CharField(max_length=8, default='')
+    qty_fill = models.DecimalField(max_digits=15, decimal_places=3)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.shortname
