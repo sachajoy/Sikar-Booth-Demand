@@ -40,3 +40,10 @@ class Booth(models.Model):
 
     def __str__(self):
         return "{} {} {}".format(self.booth_no, self.xname, self.route_no)
+
+class ItemGroup(models.Model):
+    xname = models.CharField(max_length=32, default='')
+    itype = models.CharField(max_length=1, default='')
+
+    def __str__(self):
+        return self.xname
