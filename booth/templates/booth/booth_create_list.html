@@ -1,16 +1,20 @@
 {% extends '_template.html' %}
 {% block content %}
-    <div class="col-sm-12 col-md-7">
-        <table>
-            {% for booth in booth_list %}
-                <tr>
-                    <td>{{ booth.booth_no }}</td>
-                    <td>{{ booth.xname }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-    </div>
-    <div class="col-sm-12 col-md-5">
-        {{ form.as_p }}
+    <div class="container-fluid">
+        <div class="col-sm-12 col-md-7">
+            <table>
+                {% for booth in booth_list %}
+                    <tr>
+                        <td>{{ booth.booth_no }}</td>
+                        <td>{{ booth.xname }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="col-sm-12 col-md-5">
+            <table>
+                {{ form.as_table }}
+            </table>
+        </div>
     </div>
 {% endblock %}
