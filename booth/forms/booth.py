@@ -13,7 +13,8 @@ class BoothForm(ModelForm):
         ]
         models = models.Booth
         widgets = {
-            'upwd': forms.PasswordInput(),
+            'uid': forms.CharField(attrs={'disabled':'disabled'}),
+            'upwd': forms.PasswordInput(attrs={'disabled':'disabled'}),
             'active': forms.CheckboxInput(attrs={'disabled':'disabled'})
         }
 
