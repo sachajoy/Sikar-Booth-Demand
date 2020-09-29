@@ -14,9 +14,22 @@ class BoothForm(ModelForm):
         ]
         model = models.Booth
         widgets = {
-            'uid': forms.TextInput(),
-            'upwd': forms.PasswordInput(),
-            'active': forms.CheckboxInput()
+            'uid': forms.TextInput(attrs={'disabled': 'disabled'}),
+            'upwd': forms.PasswordInput(attrs={'disabled': 'disabled'}),
+            'active': forms.CheckboxInput(attrs={'disabled': 'disabled'})
+        }
+        labels = {
+            'route_no': 'Route No.',
+            'booth_no': 'Booth No',
+            'xname': 'Name',
+            'add1': 'Add 1',
+            'add2': 'Add 2',
+            'add3': 'Add 3',
+            'add4': 'Add 4',
+            'mobile': 'Mobile',
+            'uid': 'Login',
+            'upwd': 'Password',
+            'active': 'Active',
         }
 
     def __init__(self, *args, **kwargs):
