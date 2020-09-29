@@ -3,14 +3,42 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12 col-md-7">
-                <table class="table table-hover">
-                    {% for booth in booth_list %}
-                        <tr>
-                            <td>{{ booth.booth_no }}</td>
-                            <td>{{ booth.xname }}</td>
-                        </tr>
-                    {% endfor %}
-                </table>
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Booth
+                            List</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover"
+                                   id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Booth No.</th>
+                                    <th>Booth Name</th>
+                                    <th>Route No.</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Booth No.</th>
+                                    <th>Booth Name</th>
+                                    <th>Route No.</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                {% for booth in booth_list %}
+                                    <tr>
+                                        <td>{{ booth.booth_no }}</td>
+                                        <td>{{ booth.xname }}</td>
+                                        <td>{{ booth.route_no.xname }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="col-sm-12 col-md-5">
                 <table class="table table-borderless">
