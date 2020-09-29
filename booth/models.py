@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.shortcuts import reverse
 
 class Contractor(models.Model):
     xname = models.CharField(max_length=64)
@@ -56,6 +56,9 @@ class Booth(models.Model):
         return "{} {} {}".format(self.booth_no,
                                  self.xname,
                                  self.route_no)
+    def get_absolute_url(self):
+        return reverse('booth:create-list-booth')
+
 
 
 class ItemGroup(models.Model):
