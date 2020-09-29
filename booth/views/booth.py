@@ -6,5 +6,5 @@ from booth.forms import booth
 class BoothCreateListView(CreateView, ListView):
     model = models.Booth
     form_class = booth.BoothForm
-    template_name = 'booth_create_list.html'
-    
+    template_name = 'booth/booth_create_list.html'
+    context_object_name = 'booth_list'
