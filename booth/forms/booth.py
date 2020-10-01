@@ -14,6 +14,7 @@ class BoothForm(ModelForm):
         ]
         model = models.Booth
         widgets = {
+            'route_no': forms.TextInput(),
             'uid': forms.TextInput(attrs={'disabled': 'disabled'}),
             'upwd': forms.PasswordInput(attrs={'disabled': 'disabled'}),
             'active': forms.CheckboxInput(attrs={'disabled': 'disabled'})
@@ -34,6 +35,9 @@ class BoothForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['route_no'].widget.attrs.update(
+            {'onfocusout':'myfunction()'}
+        )
         for name, field in self.fields.items():
             field.widget.attrs.update(
                 {'class': 'form-control form-control-user'}

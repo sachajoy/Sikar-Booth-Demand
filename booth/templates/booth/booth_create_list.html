@@ -41,11 +41,34 @@
                 </div>
             </div>
             <div class="col-sm-12 col-md-5">
-                <table class="table table-borderless">
-                    {{ form.as_table }}
-                </table>
-                <input class="btn btn-success" type="submit" value="Save">
+                <form method="post">
+                    {% csrf_token %}
+                    <table class="table table-borderless">
+                        {{ form.as_table }}
+                    </table>
+                    <input class="btn btn-success" type="submit" value="Save">
+                </form>
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
     </div>
+    <script>
+        var booth  = {{ js_data | safe }}
+        var myfunction = function () {
+            console.log(booth)
+        }
+    </script>
 {% endblock %}
