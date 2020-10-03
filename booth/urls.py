@@ -8,5 +8,8 @@ urlpatterns = [
     path('', index, name='index'),
     path('create-list-booth/',
          booth.BoothCreateListView.as_view(),
-         name='create-list-booth')
+         name='create-list-booth'),
+    path('check-route/<int:route_id>',
+         booth.check_route,
+         name='check-route'),
 ]
