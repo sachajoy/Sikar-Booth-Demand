@@ -35,6 +35,10 @@ class BoothForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['add1'].required = False
+        self.fields['add2'].required = False
+        self.fields['add3'].required = False
+        self.fields['add4'].required = False
         for name, field in self.fields.items():
             field.widget.attrs.update(
                 {'class': 'form-control form-control-user'}
