@@ -1,4 +1,5 @@
 {% extends '_template.html' %}
+{% load booth_template_tags %}
 {% block content %}
     <div class="container-fluid">
         <div class="row">
@@ -48,6 +49,8 @@
                     </table>
                     <input class="btn btn-success" type="submit" value="Save">
                 </form>
+                            <div id="route_no"></div>
+
                 {% if form.errors %}
                     {% for field in form %}
                         {% for error in field.errors %}
@@ -65,10 +68,24 @@
             </div>
         </div>
     </div>
-    <script>
-        var booth  = {{ js_data | safe }}
-        var myfunction = function () {
-            console.log(booth)
-        }
-    </script>
+    {% block script %}
+        <script>
+            $("#id_route_no").focusout(
+                function () {
+                    var div = document.getElementById('route_no')
+                    var id = document.getElementById('id_route_no').value
+                    var url = "http://localhost:8000/check-route/"+id
+                    {#div.innerHTML = url#}
+                    $.ajax({
+                        url: url,
+                        type: 'GET',
+                        success: function (data){
+                            div.innerHTML = data
+                        }
+                    })
+                }
+            )
+        </script>
+    {% endblock %}
+
 {% endblock %}
