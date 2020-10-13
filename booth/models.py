@@ -25,6 +25,9 @@ class Route(models.Model):
     def __str__(self):
         return "{} {}".format(self.route_no, self.xname)
 
+    def get_absolute_url(self):
+        return reverse('booth:create-list-booth')
+
 
 
 class Booth(models.Model):

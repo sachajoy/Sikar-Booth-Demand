@@ -11,6 +11,7 @@ class BoothForm(ModelForm):
             'xname', 'add1', 'add2',
             'add3', 'add4', 'mobile',
             'uid', 'upwd', 'active',
+            # 'contractor_id', 'tran_next_id'
         ]
         model = models.Booth
         widgets = {
@@ -35,6 +36,12 @@ class BoothForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['uid'].required = False
+        self.fields['upwd'].required = False
+        self.fields['add1'].required = False
+        self.fields['add2'].required = False
+        self.fields['add3'].required = False
+        self.fields['add4'].required = False
         for name, field in self.fields.items():
             field.widget.attrs.update(
                 {'class': 'form-control form-control-user'}

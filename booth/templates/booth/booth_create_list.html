@@ -45,17 +45,74 @@
                 <form method="post">
                     {% csrf_token %}
                     <table class="table table-borderless">
-                        {{ form.as_table }}
+                        <tbody>
+                        <tr>
+                            <th><label for="id_route_no">Route No.</label></th>
+                            <td>{{ form.route_no }}</td>
+                            <td><span id="route_no">Route </span></td>
+                        </tr>
+                        <tr>
+                            <th><label for="id_booth_no">Booth No:</label></th>
+                            <td colspan="2">{{ form.booth_no }}</td>
+
+                        </tr>
+                        <tr>
+                            <th><label for="id_xname">Name:</label></th>
+                            <td colspan="2">{{ form.xname }}</td>
+
+                        </tr>
+                        <tr>
+                            <th><label for="id_add1">Add 1:</label></th>
+                            <td colspan="2">{{ form.add1 }}</td>
+
+                        </tr>
+                        <tr>
+                            <th><label for="id_add2">Add 2:</label></th>
+                            <td colspan="2"> {{ form.add2 }}</td>
+
+                        </tr>
+                        <tr>
+                            <th><label for="id_add3">Add 3:</label></th>
+                            <td colspan="2">{{ form.add3 }}</td>
+
+                        </tr>
+                        <tr>
+                            <th><label for="id_add4">Add 4:</label></th>
+                            <td colspan="2">{{ form.add4 }}</td>
+
+                        </tr>
+                        <tr>
+                            <th><label for="id_mobile">Mobile:</label></th>
+                            <td colspan="2">{{ form.mobile }}</td>
+
+                        </tr>
+                        <tr>
+                            <th><label for="id_uid">Login:</label></th>
+                            <td colspan="2">{{ form.uid }}</td>
+
+                        </tr>
+                        <tr>
+                            <th><label for="id_upwd">Password:</label></th>
+                            <td colspan="2">{{ form.upwd }} {% if form.errors %}{{ form.upwd.error }}{% endif %}</td>
+
+                        </tr>
+                        <tr>
+                            <th><label for="id_active">Active:</label></th>
+                            <td colspan="2">{{ form.active }}</td>
+
+                        </tr>
+                        </tbody>
                     </table>
                     <input class="btn btn-success" type="submit" value="Save">
                 </form>
-                            <div id="route_no"></div>
+
 
                 {% if form.errors %}
                     {% for field in form %}
+
                         {% for error in field.errors %}
                             <div class="alert alert-danger">
-                                <strong>{{ error|escape }}</strong>
+                                <strong>{{ field.label }} - {{ error|escape }}</strong>
                             </div>
                         {% endfor %}
                     {% endfor %}
@@ -83,6 +140,14 @@
                             div.innerHTML = data
                         }
                     })
+                }
+            );
+            $("#id_booth_no").focusout(
+                function () {
+                    var booth = $('#id_booth_no').val()
+                    console.log(booth)
+                    document.getElementById('#id_uid').value = booth
+                    document.getElementById('#id_upwd').value = booth
                 }
             )
         </script>

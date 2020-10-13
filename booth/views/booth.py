@@ -1,8 +1,5 @@
-import json
-
-from django.shortcuts import get_object_or_404, render
 from django.http import HttpResponse
-from django.core.serializers.json import DjangoJSONEncoder
+from django.urls import reverse_lazy
 from django.views.generic import (CreateView, ListView)
 
 from booth import models
@@ -18,16 +15,26 @@ def check_route(request, route_id):
     return HttpResponse("No Route")
 
 
-
-class BoothCreateListView(CreateView, ListView):
-    model = models.Booth
+class BoothCreateListView(CreateView):
+    # context_object_name = 'booth_list'
     form_class = booth.BoothForm
+    model = models.Booth
     template_name = 'booth/booth_create_list.html'
-    context_object_name = 'booth_list'
+    # success_url = 'booth:create-list-booth'
+
+    def get_success_url(self):
+        return reverse_lazy('booth:create-list-booth')
+    def form_valid(self, form):
+        booth = form.save(commit=False)
+        booth.contractor_id = models.Route.objects.get(route_no=booth.route_no.route_no).contractor_id
+        booth.tran_next_id = booth.booth_no * (10**7) + 1
+        booth.uid = booth.booth_no
+        booth.upwd = booth.booth_no
+        booth.save()
+        return super().form_valid(form=booth)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        js_data = list(
-            models.Route.objects.all().values_list('route_no', 'xname'))
-        context['js_data'] = json.dumps(list(js_data), cls=DjangoJSONEncoder)
+        context['booth_list'] = models.Booth.objects.all()
+        # context['booth'] = models.boo
         return context
