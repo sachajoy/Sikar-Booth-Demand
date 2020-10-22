@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.urls import reverse_lazy
-from django.views.generic import (CreateView, ListView)
+from django.views.generic import (CreateView)
 
 from booth import models
 from booth.forms import booth
@@ -24,6 +24,7 @@ class BoothCreateListView(CreateView):
 
     def get_success_url(self):
         return reverse_lazy('booth:create-list-booth')
+
     def form_valid(self, form):
         booth = form.save(commit=False)
         booth.contractor_id = models.Route.objects.get(route_no=booth.route_no.route_no).contractor_id
