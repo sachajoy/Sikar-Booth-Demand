@@ -1,0 +1,93 @@
+{% extends '_template.html' %}
+{% block content %}
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-7">
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Route
+                            List</h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover"
+                                   id="dataTable" width="100%" cellspacing="0">
+                                <thead>
+                                <tr>
+                                    <th>Route No.</th>
+                                    <th>Route Name</th>
+                                    <th>Contractor</th>
+                                </tr>
+                                </thead>
+                                <tfoot>
+                                <tr>
+                                    <th>Route No.</th>
+                                    <th>Route Name</th>
+                                    <th>Contractor</th>
+                                </tr>
+                                </tfoot>
+                                <tbody>
+                                {% for booth in booth_list %}
+                                    <tr>
+                                        <td>{{ route.route_no }}</td>
+                                        <td>{{ route.xname }}</td>
+                                        <td>{{ route.contractor_id }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-5">
+                <form method="post">
+                    {% csrf_token %}
+                    <table class="table table-borderless">
+                        <tbody>
+                        <tr>
+                            <th><label for="id_route_no">Route No.</label></th>
+                            <td>{{ form.route_no }}</td>
+                        </tr>
+                        <tr>
+                            <th><label for="id_booth_no">Route Name: </label></th>
+                            <td colspan="2">{{ form.xname }}</td>
+
+                        </tr>
+                        <tr>
+                            <th><label for="id_xname">Contractor</label></th>
+                            <td colspan="2">{{ form.contractor_id }}</td>
+
+                        </tr>
+                        <tr>
+                            <th><label for="id_add1">Active</label></th>
+                            <td colspan="2">{{ form.acitve }}</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                    <input class="btn btn-success" type="submit" value="Save">
+                </form>
+
+
+                {% if form.errors %}
+                    {% for field in form %}
+
+                        {% for error in field.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ field.label }}
+                                    - {{ error|escape }}</strong>
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
