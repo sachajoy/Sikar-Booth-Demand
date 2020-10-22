@@ -10,12 +10,7 @@ class RouteCreateForm(ModelForm):
             'xname', 'route_no',
             'contractor_id', 'active'
         ]
-        labels = {
-            'xname': 'Route Name',
-            'route_no': 'Route Name',
-            'contractor_id': 'Contractor',
-            'active': 'Active'
-        }
+
         widgets = {
             'active': forms.CheckboxInput(attrs={'disabled': 'disabled'})
         }
