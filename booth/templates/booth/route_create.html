@@ -27,7 +27,7 @@
                                 </tr>
                                 </tfoot>
                                 <tbody>
-                                {% for booth in booth_list %}
+                                {% for route in routes %}
                                     <tr>
                                         <td>{{ route.route_no }}</td>
                                         <td>{{ route.xname }}</td>
@@ -61,7 +61,7 @@
                         </tr>
                         <tr>
                             <th><label for="id_add1">Active</label></th>
-                            <td colspan="2">{{ form.acitve }}</td>
+                            <td colspan="2">{{ form.active }}</td>
 
                         </tr>
                         </tbody>
